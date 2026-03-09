@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Dashboard | AI Ranker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <style>
+        body { background: #0f172a; color: #f8fafc; font-family: 'Inter', sans-serif; }
+        .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); border-radius: 15px; }
+        .table { color: #f8fafc; }
+        .progress { height: 10px; border-radius: 10px; background: rgba(255,255,255,0.1); }
+        .rank-badge { width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: #3b82f6; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+        <div class="d-flex justify-content-between align-items-center mb-5">
+            <h2><i class="bi bi-person-badge-fill text-primary"></i> Recruiter Portal</h2>
+            <a href="/" class="btn btn-outline-light btn-sm">Back to Home</a>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="glass-card p-4">
+                    <h5 class="mb-4">Analysis Criteria</h5>
+                    <form method="POST" enctype="multipart/form-data">
+                        <label class="form-label text-secondary small">JOB DESCRIPTION</label>
+                        <textarea name="jd" class="form-control bg-dark text-white border-secondary mb-3" rows="6" placeholder="Paste requirements here..." required></textarea>
+                        
+                        <label class="form-label text-secondary small">UPLOAD RESUMES (PDF)</label>
+                        <input type="file" name="resumes" multiple class="form-control bg-dark text-white border-secondary mb-4" accept=".pdf" required>
+                        
+                        <button type="submit" class="btn btn-primary w-100 fw-bold py-2">RANK CANDIDATES</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="glass-card p-4">
+                    <div class="d-flex justify-content-between mb-4">
+                        <h5>Ranked Candidates</h5>
+                        {% if results %}
+                        <button class="btn btn-success btn-sm"><i class="bi bi-download"></i> Export Report</button>
+                        {% endif %}
+                    </div>
+
+                    {% if results %}
+                    <div class="table-responsive">
+                        <table class="table align-middle">
+                            <thead>
+                                <tr class="text-secondary small">
+                                    <th>RANK</th>
+                                    <th>CANDIDATE NAME</th>
+                                    <th>ATS MATCH</th>
+                                    <th>ACTION</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for res in results %}
+                                <tr>
+                                    <td><div class="rank-badge">{{ loop.index }}</div></td>
+                                    <td class="fw-bold">{{ res.name }}</td>
+                                    <td style="width: 40%;">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <div class="progress flex-grow-1">
+                                                <div class="progress-bar bg-primary" style="width: {{ res.score }}%"></div>
+                                            </div>
+                                            <span class="small">{{ res.score }}%</span>
+                                        </div>
+                                    </td>
+                                    <td><button class="btn btn-sm btn-outline-primary">View Details</button></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <div class="text-center py-5">
+                        <i class="bi bi-cloud-upload display-1 text-secondary"></i>
+                        <p class="mt-3 text-secondary">Upload resumes to see the ranking leaderboard</p>
+                    </div>
+                    {% endif %}
+                    {% if results %}
+                    <a href="/export" class="btn btn-success btn-sm">
+                        <i class="bi bi-download"></i> Export PDF Report
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

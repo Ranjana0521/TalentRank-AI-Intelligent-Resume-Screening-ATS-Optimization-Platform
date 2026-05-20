@@ -18,7 +18,6 @@ latest_results = []
 def index():
     return render_template('index.html')
 
-
 # ================= HR DASHBOARD =================
 @app.route('/hr', methods=['GET', 'POST'])
 def hr_dashboard():
@@ -51,8 +50,6 @@ def hr_dashboard():
         latest_results = results
 
     return render_template('hr.html', results=results)
-
-
 
 # ================= CANDIDATE DASHBOARD =================
 @app.route('/candidate', methods=['GET', 'POST'])
@@ -90,8 +87,6 @@ def candidate_dashboard():
 
     return render_template('candidate.html', analysis=analysis)
 
-
-
 # ================= EXPORT REPORT =================
 @app.route('/export')
 def export_report():
@@ -102,8 +97,6 @@ def export_report():
     report_path = generate_pdf_report(latest_results)
 
     return send_file(report_path, as_attachment=True)
-
-
 
 # ================= RUN APP =================
 if __name__ == "__main__":

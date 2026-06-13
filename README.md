@@ -9,7 +9,7 @@ This project leverages **Natural Language Processing (NLP)** and **Machine Learn
 # 🌐 Live Demo
 
 🔗 **Deployed Application:**
-https://web-production-f3ccb.up.railway.app
+talent-rank-ai-intelligent-resume-s-sigma.vercel.app
 
 ---
 

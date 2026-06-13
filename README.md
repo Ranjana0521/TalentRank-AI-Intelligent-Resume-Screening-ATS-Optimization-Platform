@@ -9,7 +9,7 @@ This project leverages **Natural Language Processing (NLP)** and **Machine Learn
 # 🌐 Live Demo
 
 🔗 **Deployed Application:**
-talent-rank-ai-intelligent-resume-s-sigma.vercel.app
+https://talent-rank-ai-intelligent-resume-s-sigma.vercel.app/
 
 ---
 
